@@ -28,6 +28,8 @@ model = cl.cnn_model.gen_model()
 history = cl.training.fit(model, ds_train, ds_validation)
 # Evaluate the model on test set
 test_loss, test_cce_loss, test_ole_loss, test_accuracy = cl.training.evaluate(model, ds_test)
+cl.graphs.loss_accuracy_graph(history, test_loss, test_cce_loss, test_ole_loss, test_accuracy)
+cl.graphs.confusion_matrix_graph(model, ds_test)
 
 
 
