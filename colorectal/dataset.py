@@ -4,6 +4,10 @@ from colorectal import constants
 
 
 def dataset_download():
+    """
+    The function downloads the colorectal dataset whit tfds->https://www.tensorflow.org/datasets/api_docs/python/tfds.
+    :return: 	the colorectal dataset in tf.data.Dataset format, dataset info
+    """
     [_ds], _ds_info = tfds.load(
         'colorectal_histology',
         split=['train'],
@@ -14,6 +18,18 @@ def dataset_download():
 
 
 def dataset_split(ds):
+    """
+    This function divides the dataset ds into three parts: train, validation, and test set. At first, the dataset is
+    shuffled, then it is split into 8 different datasets, one for each class of texture. They are stored in a
+    list _ds_category. So these datasets have 625 elements each (5000/8). For all i=0,...,7, _ds_category[i] is divided
+    into three parts of 425, 100, 100 elements, named _ds_cat_train[i], _ds_cat_validation[i], and _ds_cat_test[i].
+    Then to build ds_train (training set), every dataset in the _ds_category list is merged. The same idea applies to
+    ds_validation and ds_test.
+    This procedure is necessary to guarantee that in each set the proportion is the same as in the original dataset.
+
+    :param ds: input dataset (colorectal dataset)
+    :return: training set, validation set, test set
+    """
     _ds = ds.shuffle(constants.DS_SIZE, reshuffle_each_iteration=False)
     _ds_category = []
     _ds_cat_train = []
@@ -43,6 +59,11 @@ def dataset_split(ds):
 
 
 def one_hot_encoding(dataset):
+    """
+
+    :param dataset: input dataset
+    :return: the dataset taken in input where the category column is codified with the one hot encoding
+    """
     def _one_h(image, label):
         return image, tf.one_hot(label, 8)
     return dataset.map(_one_h, num_parallel_calls=tf.data.AUTOTUNE)
@@ -76,6 +97,13 @@ def normalize(dataset):
 
 
 def ca_sh_ba_pr(dataset):
+    """
+    This function improves performance of the dataset during training.
+    https://www.tensorflow.org/guide/data_performance
+
+    :param dataset: input dataset
+    :return: the dataset cached, shuffled, divided in mini-batch and prefetched
+    """
     _dataset = dataset.cache()
     _dataset = _dataset.shuffle(30000)
     _dataset = _dataset.batch(constants.BATCH_SIZE)

@@ -2,6 +2,12 @@ import tensorflow as tf
 
 
 def ole_loss(y_true, y_pred):
+    """
+    This function defines the OLE loss (Orthogonal Low-rank Embedding) in TensorFlow.
+    :param y_true: mini-batch of targets
+    :param y_pred: mini-batch of model predictions
+    :return: OLE loss
+    """
     _y_true = tf.cast(y_true,tf.int32)
     _y_true = tf.cast(_y_true,tf.bool)
     _y_true = tf.transpose(_y_true)

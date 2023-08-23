@@ -3,6 +3,10 @@ from colorectal import constants, custom_layers
 
 
 def gen_model():
+    """
+    The core of the model
+    :return:
+    """
     _input_shape = Input(shape=[150, 150, 3])
     _out = layers.GaussianNoise(0.03)(_input_shape)
     _out = layers.Conv2D(32,
