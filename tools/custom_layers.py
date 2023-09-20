@@ -1,5 +1,5 @@
 from keras import layers, Input, Model, regularizers
-from colorectal import constants
+from tools import constants
 
 
 def se_block(shape, ratio=4):

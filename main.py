@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-import colorectal as cl
+import tools as cl
 
 tf.random.set_seed(cl.constants.TF_SEED)
 # Dataset download

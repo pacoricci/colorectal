@@ -1,12 +1,12 @@
 import tensorflow as tf
 import tensorflow_datasets as tfds
-from colorectal import constants
+from tools import constants
 
 
 def dataset_download():
     """
-    The function downloads the colorectal dataset whit tfds->https://www.tensorflow.org/datasets/api_docs/python/tfds.
-    :return: 	the colorectal dataset in tf.data.Dataset format, dataset info
+    The function downloads the tools dataset whit tfds->https://www.tensorflow.org/datasets/api_docs/python/tfds.
+    :return: 	the tools dataset in tf.data.Dataset format, dataset info
     """
     [_ds], _ds_info = tfds.load(
         'colorectal_histology',
@@ -27,7 +27,7 @@ def dataset_split(ds):
     ds_validation and ds_test.
     This procedure is necessary to guarantee that in each set the proportion is the same as in the original dataset.
 
-    :param ds: input dataset (colorectal dataset)
+    :param ds: input dataset (tools dataset)
     :return: training set, validation set, test set
     """
     _ds = ds.shuffle(constants.DS_SIZE, reshuffle_each_iteration=False)

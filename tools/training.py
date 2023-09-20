@@ -1,6 +1,6 @@
 import tensorflow as tf
-from colorectal import constants
-from colorectal.losses import ole_loss
+from tools import constants
+from tools.losses import ole_loss
 from keras.optimizers import SGD
 
 

@@ -1,5 +1,5 @@
 from keras import layers, Input, Model, regularizers
-from colorectal import constants, custom_layers
+from tools import constants, custom_layers
 
 
 def gen_model():
